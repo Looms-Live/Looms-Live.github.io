@@ -3,186 +3,82 @@
 
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const isLight = theme === 'light';
-  const bgColor = isLight ? '#F9FAFB' : '#121212';
-  const textColor = isLight ? '#1F3C88' : '#E0E0E0';
-  const cardBg = isLight ? 'rgba(46,196,182,0.08)' : 'rgba(46,196,182,0.1)';
-  const mainGradient = isLight
-    ? 'linear-gradient(135deg, #F9FAFB 60%, #2EC4B6 100%)'
-    : 'linear-gradient(135deg, #121212 60%, #2EC4B6 100%)';
+  const [animating, setAnimating] = useState(false);
+  const [wipeProgress, setWipeProgress] = useState(1); // 0 to 1
+  const [wipeDirection, setWipeDirection] = useState<'left' | 'right'>('left');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  let isLight = theme === 'light';
+  // Tailwind classes for theme
+  const navBgClass = isLight ? 'bg-[#F9FAFB] border-b border-[#E0E0E0]' : 'bg-[#121212] border-b border-[#222]';
+  const navTextClass = isLight ? 'text-[#1F3C88]' : 'text-[#E0E0E0]';
+  const btnBgClass = isLight ? 'bg-[#E0E0E0] text-[#1F3C88]' : 'bg-[#2EC4B6] text-[#121212]';
+  const mainBgClass = isLight ? 'bg-[#F9FAFB]' : 'bg-[#121212]';
+  const cardBgClass = isLight ? 'bg-[#2ec4b617]' : 'bg-[#2ec4b61a]';
+  const textClass = isLight ? 'text-[#1F3C88]' : 'text-[#E0E0E0]';
+  const linkBgClass = isLight ? 'bg-[#2EC4B6] text-[#1F3C88]' : 'bg-[#9B5DE5] text-[#E0E0E0]';
+
+  // Wipe animation handler
+  const handleThemeSwitch = () => {
+    setWipeDirection(isLight ? 'left' : 'right');
+    setAnimating(true);
+    let start: number | null = null;
+    const duration = 700;
+    interface AnimateWipeParams {
+      ts: number;
+    }
+
+    function animateWipe(ts: number): void {
+      if (!start) start = ts;
+      const elapsed: number = ts - (start as number);
+      let progress: number = Math.min(elapsed / duration, 1);
+      setWipeProgress(progress);
+      if (progress < 1) {
+      requestAnimationFrame(animateWipe);
+      } else {
+      setTheme(isLight ? 'dark' : 'light');
+      setAnimating(false);
+      setWipeProgress(1);
+      }
+    }
+    setWipeProgress(0);
+    requestAnimationFrame(animateWipe);
+  };
 
   return (
     <>
-      <div style={{
-        position: 'absolute',
-        top: 24,
-        right: 32,
-        zIndex: 10,
-      }}>
+  {/* No overlay needed, gradient animates in real time */}
+      {/* Navbar */}
+      <nav className={`w-full h-16 flex items-center justify-between px-10 fixed top-0 left-0 z-50 shadow-sm transition-all duration-700 ${navBgClass}`}>
+        <div className="flex items-center gap-4">
+          <Image src="/company.png" alt="Company Logo" width={40} height={40} className="rounded-lg" />
+          <span className={`font-bold text-xl tracking-wide transition-colors duration-700 ${navTextClass}`}>Looms Live</span>
+        </div>
         <button
-          onClick={() => setTheme(isLight ? 'dark' : 'light')}
-          style={{
-            background: isLight ? '#E0E0E0' : '#2EC4B6',
-            color: isLight ? '#1F3C88' : '#121212',
-            border: 'none',
-            borderRadius: '20px',
-            padding: '0.5rem 1.2rem',
-            fontWeight: 600,
-            fontSize: '1rem',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px 0 rgba(46,196,182,0.10)',
-            transition: 'background 0.2s',
-          }}
+          onClick={handleThemeSwitch}
+          className={`rounded-full px-4 py-2 font-semibold text-base shadow transition-all duration-700 ${btnBgClass} hover:shadow-[0_0_16px_4px_#2EC4B6]`}
           aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
         >
           {isLight ? '🌙 Dark' : '☀️ Light'}
         </button>
-      </div>
-      <main style={{
-        minHeight: '100vh',
-        background: mainGradient,
-        color: textColor,
-        fontFamily: 'Segoe UI, Arial, sans-serif',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0',
-        transition: 'background 0.3s, color 0.3s',
-      }}>
-        <div style={{
-          background: cardBg,
-          borderRadius: '24px',
-          boxShadow: '0 8px 32px 0 rgba(31,60,136,0.2)',
-          padding: '48px 32px',
-          maxWidth: '480px',
-          textAlign: 'center',
-        }}>
-          <h1 style={{
-            fontSize: '2.8rem',
-            fontWeight: 700,
-            marginBottom: '1rem',
-            color: isLight ? '#2EC4B6' : '#2EC4B6',
-            letterSpacing: '2px',
-          }}>
-            Looms Live
-          </h1>
-          <h2 style={{
-            fontSize: '1.4rem',
-            fontWeight: 400,
-            marginBottom: '2rem',
-            color: textColor,
-          }}>
-            Empowering Businesses to Connect, Create, and Grow
-          </h2>
-          <p style={{
-            fontSize: '1.1rem',
-            color: textColor,
-            marginBottom: '2.5rem',
-          }}>
-            Looms Live is your partner in digital transformation. We deliver innovative solutions for modern companies, helping you reach new heights in engagement and productivity.
-          </p>
-          <a href="#contact" style={{
-            display: 'inline-block',
-            background: isLight ? '#2EC4B6' : '#9B5DE5',
-            color: isLight ? '#1F3C88' : '#E0E0E0',
-            fontWeight: 600,
-            padding: '0.75rem 2rem',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            boxShadow: '0 2px 8px 0 rgba(46,196,182,0.15)',
-            transition: 'background 0.2s',
-          }}
-          >
-            Get Started
-          </a>
+      </nav>
+      {/* Spacer for navbar */}
+      <div style={{ height: '64px' }} />
+  <main className={`min-h-screen flex flex-col items-center justify-center font-sans transition-all duration-700 ${mainBgClass} ${textClass}`}>
+  <div className={`rounded-3xl shadow-lg px-8 py-12 max-w-lg text-center transition-all duration-700 ${cardBgClass}`}>
+          <h1 className="text-4xl font-bold mb-4 text-[#2EC4B6] tracking-wide transition-colors duration-700">Looms Live</h1>
+          <h2 className={`text-lg font-normal mb-8 transition-colors duration-700 ${textClass}`}>Empowering Businesses to Connect, Create, and Grow</h2>
+          <p className={`text-base mb-10 transition-colors duration-700 ${textClass}`}>Looms Live is your partner in digital transformation. We deliver innovative solutions for modern companies, helping you reach new heights in engagement and productivity.</p>
+          <a href="#contact" className={`inline-block font-semibold px-8 py-3 rounded-lg shadow transition-all duration-700 ${linkBgClass}`}>Get Started</a>
         </div>
-        <footer style={{
-          marginTop: '3rem',
-          color: textColor,
-          fontSize: '0.95rem',
-          opacity: 0.7,
-        }}>
+        <footer className={`mt-12 text-sm opacity-70 transition-colors duration-700 ${textClass}`}>
           &copy; {new Date().getFullYear()} Looms Live. All rights reserved.
         </footer>
   </main>
-      <div className="flex gap-4 items-center flex-col sm:flex-row">
-        <a
-          className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            className="dark:invert"
-            src="/vercel.svg"
-            alt="Vercel logomark"
-            width={20}
-            height={20}
-          />
-          Deploy now
-        </a>
-        <a
-          className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Read our docs
-        </a>
-      </div>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </>
   );
 }
