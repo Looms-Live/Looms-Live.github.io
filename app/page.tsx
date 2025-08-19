@@ -24,7 +24,7 @@ export default function Home() {
         }}
       />
       {/* Navbar */}
-      <nav className="w-full h-16 flex items-center justify-between px-10 fixed top-0 left-0 z-50 shadow-sm bg-[#23232a] border-b border-[var(--color-light)]">
+  <nav className="w-full h-16 flex items-center justify-between px-10 fixed top-0 left-0 z-50 shadow-sm bg-[#23232ae6] backdrop-blur-md" style={{ border: "none" }}>
         <div className="flex items-center gap-4">
           <Image
             src="/company.png"
