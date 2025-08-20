@@ -2,7 +2,11 @@ export default function Vision() {
   return (
     <section
       id="vision"
-      className="w-full py-24 px-4 flex flex-col items-center bg-[#23232a]"
+      className="w-full py-24 px-4 flex flex-col items-center"
+      style={{
+        background: "rgba(35,35,42,0.7)",
+        backdropFilter: "blur(2px)",
+      }}
     >
       <div className="max-w-3xl w-full rounded-2xl p-10 shadow-lg bg-[var(--color-secondary)] animate-fade-in">
         <h2 className="text-4xl font-bold mb-6 text-[var(--color-light)]">
