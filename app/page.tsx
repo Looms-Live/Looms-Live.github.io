@@ -1,11 +1,10 @@
 "use client";
-
-import Image from "next/image";
-import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Products from "./components/Products";
+import Vision from "./components/Vision";
+import Contact from "./components/Contact";
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <main
       className="min-h-screen font-sans relative"
@@ -25,69 +24,7 @@ export default function Home() {
           height: "100%",
         }}
       />
-      {/* Navbar */}
-      <nav className="w-full h-16 flex items-center justify-between px-4 md:px-10 fixed top-0 left-0 z-50 shadow-sm bg-[#23232ae6] backdrop-blur-md border-none">
-        <div className="flex items-center gap-4">
-          <Image
-            src="/company.png"
-            alt="Company Logo"
-            width={40}
-            height={40}
-            className="rounded-lg"
-          />
-          <span className="font-bold text-xl tracking-wide text-[var(--color-primary)] dark:text-[var(--color-light)]">
-            Looms Live
-          </span>
-        </div>
-        {/* Desktop Links */}
-        <div className="hidden md:flex gap-6 items-center">
-          <a href="#products" className="hover:underline">
-            Products
-          </a>
-          <a href="#vision" className="hover:underline">
-            Vision
-          </a>
-          <a href="#contact" className="hover:underline">
-            Contact
-          </a>
-        </div>
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden flex items-center justify-center w-10 h-10"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className="block w-6 h-0.5 bg-[var(--color-primary)] mb-1"></span>
-          <span className="block w-6 h-0.5 bg-[var(--color-primary)] mb-1"></span>
-          <span className="block w-6 h-0.5 bg-[var(--color-primary)]"></span>
-        </button>
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-[#23232ae6] backdrop-blur-md flex flex-col items-center py-4 md:hidden z-50">
-            <a
-              href="#products"
-              className="py-2 text-lg w-full text-center hover:underline"
-              onClick={() => setMenuOpen(false)}
-            >
-              Products
-            </a>
-            <a
-              href="#vision"
-              className="py-2 text-lg w-full text-center hover:underline"
-              onClick={() => setMenuOpen(false)}
-            >
-              Vision
-            </a>
-            <a
-              href="#contact"
-              className="py-2 text-lg w-full text-center hover:underline"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contact
-            </a>
-          </div>
-        )}
-      </nav>
+      <Navbar />
       {/* Hero Section */}
       <section
         className="w-full min-h-[80vh] flex flex-col items-center justify-center text-center pt-24 pb-16 px-4 bg-[#23232a]"
@@ -120,145 +57,9 @@ export default function Home() {
           Get Started
         </a>
       </section>
-      {/* Vision Section */}
-      <section
-        id="vision"
-        className="w-full py-24 px-4 flex flex-col items-center bg-[#23232a]"
-      >
-        <div className="max-w-3xl w-full rounded-2xl p-10 shadow-lg bg-[var(--color-secondary)] animate-fade-in">
-          <h2 className="text-4xl font-bold mb-6 text-[var(--color-light)]">
-            Our Vision
-          </h2>
-          <p className="text-lg text-[var(--color-light)]">
-            At Looms Live, our vision is to redefine how businesses interact
-            with technology. We believe in a future where AI agents seamlessly
-            integrate into every workflow, empowering teams to focus on
-            creativity, strategy, and growth. By harnessing the power of
-            artificial intelligence, we aim to eliminate repetitive tasks,
-            unlock new insights, and create a smarter, more connected workplace.
-            Our commitment is to deliver intuitive, reliable, and transformative
-            AI solutions that drive real impact for organizations of all sizes.
-          </p>
-        </div>
-      </section>
-      {/* Products Section */}
-      <section
-        id="products"
-        className="w-full py-24 px-0 flex flex-col items-center relative"
-        style={{
-          padding: 0,
-          margin: 0,
-          background: "transparent",
-        }}
-      >
-        {/* Top accent line */}
-        <div
-          className="w-full h-1"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary))",
-          }}
-        />
-        {/* Products content with charcoal background, enclosed by accent lines */}
-        <div
-          className="w-full flex flex-col items-center"
-          style={{
-            background: "rgba(35,35,42,0.7)",
-            backdropFilter: "blur(2px)",
-            margin: 0,
-            paddingTop: "2rem",
-            paddingBottom: "2rem",
-          }}
-        >
-          <h2 className="text-4xl font-bold mb-12 text-[var(--color-primary)] animate-fade-in">
-            Products
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4 md:px-16">
-            <div className="rounded-2xl p-8 bg-[var(--color-light)] shadow-lg animate-slide-up">
-              <h3 className="text-xl font-semibold mb-2 text-[var(--color-primary)]">
-                Looms Agent Pro
-              </h3>
-              <p className="text-base text-[var(--color-primary)]">
-                Our flagship AI agent for automating complex workflows and
-                boosting productivity across your organization.
-              </p>
-            </div>
-            <div className="rounded-2xl p-8 bg-[var(--color-accent)] shadow-lg animate-slide-up">
-              <h3 className="text-xl font-semibold mb-2 text-[var(--color-dark)]">
-                Looms Insights
-              </h3>
-              <p className="text-base text-[var(--color-dark)]">
-                Advanced analytics and actionable insights powered by machine
-                learning, tailored for your business needs.
-              </p>
-            </div>
-            <div className="rounded-2xl p-8 bg-[var(--color-secondary)] shadow-lg animate-slide-up">
-              <h3 className="text-xl font-semibold mb-2 text-[var(--color-light)]">
-                Looms Engage
-              </h3>
-              <p className="text-base text-[var(--color-light)]">
-                Personalized customer engagement at scale, driven by intelligent
-                automation and real-time data.
-              </p>
-            </div>
-          </div>
-        </div>
-        {/* Bottom accent line */}
-        <div
-          className="w-full h-1"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--color-secondary), var(--color-accent), var(--color-primary))",
-          }}
-        />
-      </section>
-      {/* Contact Section */}
-      <section
-        id="contact"
-        className="w-full py-24 px-4 flex flex-col items-center bg-[#23232a]"
-      >
-        <h2 className="text-4xl font-bold mb-8 text-[var(--color-primary)] animate-fade-in">
-          Contact Us
-        </h2>
-        <form className="flex flex-col gap-4 w-full max-w-md mx-auto animate-fade-in">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="p-3 rounded border border-[var(--color-light)] bg-white text-[var(--color-primary)]"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="p-3 rounded border border-[var(--color-light)] bg-white text-[var(--color-primary)]"
-          />
-          <textarea
-            placeholder="Your Message"
-            rows={4}
-            className="p-3 rounded border border-[var(--color-light)] bg-white text-[var(--color-primary)]"
-          />
-          <button
-            type="submit"
-            className="mt-4 px-6 py-3 rounded-lg font-semibold bg-[var(--color-primary)] text-[var(--color-light)] hover:shadow-[0_0_16px_4px_var(--color-primary)] transition"
-          >
-            Send Message
-          </button>
-        </form>
-        <div className="mt-8 text-sm text-[var(--color-primary)] animate-fade-in">
-          <p>Email: contact@loomslive.com</p>
-          <p>
-            Follow us:
-            <a href="https://twitter.com/loomslive" className="ml-2 underline">
-              Twitter
-            </a>
-            <a
-              href="https://linkedin.com/company/loomslive"
-              className="ml-2 underline"
-            >
-              LinkedIn
-            </a>
-          </p>
-        </div>
-      </section>
+      <Vision />
+      <Products />
+      <Contact />
       {/* Footer */}
       <footer className="w-full py-8 text-center text-sm opacity-70 text-[var(--color-primary)] bg-[#23232a] border-t border-[var(--color-light)]">
         &copy; {new Date().getFullYear()} Looms Live. All rights reserved. |{" "}
