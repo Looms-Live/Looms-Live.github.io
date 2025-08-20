@@ -20,11 +20,11 @@ export default function Navbar() {
         </span>
       </div>
       <div className="hidden md:flex gap-6 items-center">
-        <a href="#products" className="hover:underline">
-          Products
-        </a>
         <a href="#vision" className="hover:underline">
           Vision
+        </a>
+        <a href="#products" className="hover:underline">
+          Products
         </a>
         <a href="#contact" className="hover:underline">
           Contact
