@@ -41,8 +41,11 @@ export default function Home() {
         </div>
         {/* Desktop Links */}
         <div className="hidden md:flex gap-6 items-center">
-          <a href="#features" className="hover:underline">
-            Features
+          <a href="#products" className="hover:underline">
+            Products
+          </a>
+          <a href="#vision" className="hover:underline">
+            Vision
           </a>
           <a href="#contact" className="hover:underline">
             Contact
@@ -62,11 +65,18 @@ export default function Home() {
         {menuOpen && (
           <div className="absolute top-16 left-0 w-full bg-[#23232ae6] backdrop-blur-md flex flex-col items-center py-4 md:hidden z-50">
             <a
-              href="#features"
+              href="#products"
               className="py-2 text-lg w-full text-center hover:underline"
               onClick={() => setMenuOpen(false)}
             >
-              Features
+              Products
+            </a>
+            <a
+              href="#vision"
+              className="py-2 text-lg w-full text-center hover:underline"
+              onClick={() => setMenuOpen(false)}
+            >
+              Vision
             </a>
             <a
               href="#contact"
@@ -110,42 +120,97 @@ export default function Home() {
           Get Started
         </a>
       </section>
-      {/* Features Section */}
+      {/* Vision Section */}
       <section
-        id="features"
+        id="vision"
         className="w-full py-24 px-4 flex flex-col items-center bg-[#23232a]"
       >
-        <h2 className="text-4xl font-bold mb-12 text-[var(--color-primary)] animate-fade-in">
-          Features
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
-          <div className="rounded-2xl p-8 bg-[var(--color-light)] shadow-lg animate-slide-up">
-            <h3 className="text-xl font-semibold mb-2 text-[var(--color-primary)]">
-              Automated Workflows
-            </h3>
-            <p className="text-base text-[var(--color-primary)]">
-              Let AI handle repetitive tasks and free your team for creative
-              work.
-            </p>
-          </div>
-          <div className="rounded-2xl p-8 bg-[var(--color-accent)] shadow-lg animate-slide-up">
-            <h3 className="text-xl font-semibold mb-2 text-[var(--color-dark)]">
-              Intelligent Insights
-            </h3>
-            <p className="text-base text-[var(--color-dark)]">
-              Get actionable analytics and recommendations powered by machine
-              learning.
-            </p>
-          </div>
-          <div className="rounded-2xl p-8 bg-[var(--color-secondary)] shadow-lg animate-slide-up">
-            <h3 className="text-xl font-semibold mb-2 text-[var(--color-light)]">
-              Personalized Experiences
-            </h3>
-            <p className="text-base text-[var(--color-light)]">
-              Deliver tailored interactions to every customer, at scale.
-            </p>
+        <div className="max-w-3xl w-full rounded-2xl p-10 shadow-lg bg-[var(--color-secondary)] animate-fade-in">
+          <h2 className="text-4xl font-bold mb-6 text-[var(--color-light)]">
+            Our Vision
+          </h2>
+          <p className="text-lg text-[var(--color-light)]">
+            At Looms Live, our vision is to redefine how businesses interact
+            with technology. We believe in a future where AI agents seamlessly
+            integrate into every workflow, empowering teams to focus on
+            creativity, strategy, and growth. By harnessing the power of
+            artificial intelligence, we aim to eliminate repetitive tasks,
+            unlock new insights, and create a smarter, more connected workplace.
+            Our commitment is to deliver intuitive, reliable, and transformative
+            AI solutions that drive real impact for organizations of all sizes.
+          </p>
+        </div>
+      </section>
+      {/* Products Section */}
+      <section
+        id="products"
+        className="w-full py-24 px-0 flex flex-col items-center relative"
+        style={{
+          padding: 0,
+          margin: 0,
+          background: "transparent",
+        }}
+      >
+        {/* Top accent line */}
+        <div
+          className="w-full h-1"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary))",
+          }}
+        />
+        {/* Products content with charcoal background, enclosed by accent lines */}
+        <div
+          className="w-full flex flex-col items-center"
+          style={{
+            background: "rgba(35,35,42,0.7)",
+            backdropFilter: "blur(2px)",
+            margin: 0,
+            paddingTop: "2rem",
+            paddingBottom: "2rem",
+          }}
+        >
+          <h2 className="text-4xl font-bold mb-12 text-[var(--color-primary)] animate-fade-in">
+            Products
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4 md:px-16">
+            <div className="rounded-2xl p-8 bg-[var(--color-light)] shadow-lg animate-slide-up">
+              <h3 className="text-xl font-semibold mb-2 text-[var(--color-primary)]">
+                Looms Agent Pro
+              </h3>
+              <p className="text-base text-[var(--color-primary)]">
+                Our flagship AI agent for automating complex workflows and
+                boosting productivity across your organization.
+              </p>
+            </div>
+            <div className="rounded-2xl p-8 bg-[var(--color-accent)] shadow-lg animate-slide-up">
+              <h3 className="text-xl font-semibold mb-2 text-[var(--color-dark)]">
+                Looms Insights
+              </h3>
+              <p className="text-base text-[var(--color-dark)]">
+                Advanced analytics and actionable insights powered by machine
+                learning, tailored for your business needs.
+              </p>
+            </div>
+            <div className="rounded-2xl p-8 bg-[var(--color-secondary)] shadow-lg animate-slide-up">
+              <h3 className="text-xl font-semibold mb-2 text-[var(--color-light)]">
+                Looms Engage
+              </h3>
+              <p className="text-base text-[var(--color-light)]">
+                Personalized customer engagement at scale, driven by intelligent
+                automation and real-time data.
+              </p>
+            </div>
           </div>
         </div>
+        {/* Bottom accent line */}
+        <div
+          className="w-full h-1"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--color-secondary), var(--color-accent), var(--color-primary))",
+          }}
+        />
       </section>
       {/* Contact Section */}
       <section
