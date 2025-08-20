@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
+
 export default function Home() {
-  // ...existing code...
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <main
@@ -24,7 +26,7 @@ export default function Home() {
         }}
       />
       {/* Navbar */}
-  <nav className="w-full h-16 flex items-center justify-between px-10 fixed top-0 left-0 z-50 shadow-sm bg-[#23232ae6] backdrop-blur-md" style={{ border: "none" }}>
+      <nav className="w-full h-16 flex items-center justify-between px-4 md:px-10 fixed top-0 left-0 z-50 shadow-sm bg-[#23232ae6] backdrop-blur-md border-none">
         <div className="flex items-center gap-4">
           <Image
             src="/company.png"
@@ -37,18 +39,44 @@ export default function Home() {
             Looms Live
           </span>
         </div>
-        <div className="flex gap-6 items-center">
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-6 items-center">
           <a href="#features" className="hover:underline">
             Features
-          </a>
-          <a href="#testimonials" className="hover:underline">
-            Testimonials
           </a>
           <a href="#contact" className="hover:underline">
             Contact
           </a>
-          {/* Theme switcher removed */}
         </div>
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden flex items-center justify-center w-10 h-10"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className="block w-6 h-0.5 bg-[var(--color-primary)] mb-1"></span>
+          <span className="block w-6 h-0.5 bg-[var(--color-primary)] mb-1"></span>
+          <span className="block w-6 h-0.5 bg-[var(--color-primary)]"></span>
+        </button>
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="absolute top-16 left-0 w-full bg-[#23232ae6] backdrop-blur-md flex flex-col items-center py-4 md:hidden z-50">
+            <a
+              href="#features"
+              className="py-2 text-lg w-full text-center hover:underline"
+              onClick={() => setMenuOpen(false)}
+            >
+              Features
+            </a>
+            <a
+              href="#contact"
+              className="py-2 text-lg w-full text-center hover:underline"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact
+            </a>
+          </div>
+        )}
       </nav>
       {/* Hero Section */}
       <section
@@ -117,35 +145,6 @@ export default function Home() {
               Deliver tailored interactions to every customer, at scale.
             </p>
           </div>
-        </div>
-      </section>
-      {/* Testimonials Section */}
-      <section
-        id="testimonials"
-        className="w-full py-24 px-4 flex flex-col items-center bg-[#23232a]"
-      >
-        <h2 className="text-4xl font-bold mb-12 text-[var(--color-primary)] animate-fade-in">
-          Testimonials
-        </h2>
-        <div className="space-y-8 w-full max-w-3xl">
-          <blockquote className="rounded-xl p-8 bg-[var(--color-accent)] shadow animate-fade-in">
-            <p className="text-lg italic text-[var(--color-dark)]">
-              “Looms Live’s AI agents have revolutionized our workflow. We’re
-              faster, smarter, and more responsive than ever.”
-            </p>
-            <footer className="mt-2 text-sm text-[var(--color-primary)]">
-              — Happy Client
-            </footer>
-          </blockquote>
-          <blockquote className="rounded-xl p-8 bg-[var(--color-secondary)] shadow animate-fade-in">
-            <p className="text-lg italic text-[var(--color-light)]">
-              “The automation and insights are game-changing. Highly
-              recommended!”
-            </p>
-            <footer className="mt-2 text-sm text-[var(--color-light)]">
-              — Satisfied Customer
-            </footer>
-          </blockquote>
         </div>
       </section>
       {/* Contact Section */}
